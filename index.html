@@ -382,6 +382,11 @@ font-size:12.5px;color:var(--tx);flex-shrink:0;cursor:pointer}
     </div>
   </div>
 
+  <div class="mt" style="margin-top:6px">
+    <div class="mc"><div class="lb">Beljakovine</div><div class="vl num" id="dProt">0 <small></small></div><div class="bar"><i id="dProtB" style="width:0"></i></div></div>
+    <div class="mc"><div class="lb">Vaje</div><div class="vl num" id="dWkC">0 <small></small></div><div class="bar"><i id="dWkB" style="width:0"></i></div></div>
+  </div>
+
   <div class="sh tr"><h2>Trening</h2><span class="v" id="dWkName"></span></div>
   <div class="master" id="dMaster">
     <button class="ck" id="dMasterCk"></button>
@@ -402,14 +407,14 @@ font-size:12.5px;color:var(--tx);flex-shrink:0;cursor:pointer}
 
   <div class="sh sl"><h2>Spanje</h2><span class="v" id="dSlpLast"></span></div>
   <div class="fr">
-    <input type="number" step="0.5" inputmode="decimal" id="dSlp" placeholder="Koliko ur si spal">
+    <input type="text" inputmode="decimal" id="dSlp" placeholder="Koliko ur si spal, npr. 8,5">
     <button class="btn" id="dSlpSave" style="flex:0 0 92px">Shrani</button>
   </div>
   <div class="mo" id="dSlpQ" style="margin-top:8px"></div>
 
   <div class="sh wt"><h2>Teža</h2><span class="v" id="dWtLast"></span></div>
   <div class="fr">
-    <input type="number" inputmode="decimal" step="0.1" id="dWt" placeholder="kg">
+    <input type="text" inputmode="decimal" id="dWt" placeholder="npr. 72,4">
     <button class="btn" id="dWtSave" style="flex:0 0 92px">Shrani</button>
   </div>
 </div>
@@ -531,6 +536,37 @@ font-size:12.5px;color:var(--tx);flex-shrink:0;cursor:pointer}
   <div id="zInsight"></div>
 </div>
 
+<div class="vw" id="v-trener">
+  <div style="margin-bottom:14px">
+    <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.3px">Moj osebni trener</div>
+    <div style="font-size:12px;color:var(--mu);margin-top:2px" id="trSub"></div>
+  </div>
+  <div class="seg" id="trTabs">
+    <button class="on" data-tr="ana">Analiza</button>
+    <button data-tr="chat">Vprašaj</button>
+  </div>
+
+  <div id="trAna">
+    <div class="mt" id="trStats"></div>
+    <div class="sh"><h2>Priporočila</h2><span class="v" id="trCount"></span></div>
+    <div id="trTips"></div>
+    <div class="sh fd"><h2>Kaj pojej danes</h2><span class="v" id="trGap"></span></div>
+    <div id="trFood"></div>
+    <div class="sh tr"><h2>Vaje, ki ti manjkajo</h2></div>
+    <div id="trGaps"></div>
+  </div>
+
+  <div id="trChat" style="display:none">
+    <div id="trMsgs"></div>
+    <div class="fr" style="margin-top:10px">
+      <input type="text" id="trQ" placeholder="npr. kaj naj pojem za večerjo?" autocomplete="off">
+      <button class="btn pr" id="trSend" style="flex:0 0 76px">Pošlji</button>
+    </div>
+    <div class="grid2" style="margin-top:8px" id="trQuick"></div>
+    <div id="trKeyBox"></div>
+  </div>
+</div>
+
 <div class="vw" id="v-dan">
   <button class="btn" id="dayBack" style="margin-bottom:14px">‹ Nazaj na koledar</button>
   <div id="dayBody"></div>
@@ -554,6 +590,8 @@ font-size:12.5px;color:var(--tx);flex-shrink:0;cursor:pointer}
     <div class="sr"><div><div class="t">Ura treninga</div><div class="d">Opomnik ob tej uri</div></div><input type="time" id="sTime"></div>
     <div class="sr"><div><div class="t">Dnevni cilj kalorij</div><div class="d" id="sGoalD"></div></div>
       <input type="number" inputmode="numeric" id="sGoal" placeholder="samodejno"></div>
+    <div class="sr"><div><div class="t">Cilj beljakovin</div><div class="d" id="sProtD"></div></div>
+      <input type="number" inputmode="numeric" id="sProt" placeholder="samodejno"></div>
   </div>
 
   <div class="sh"><h2>Baza živil</h2></div>
@@ -562,6 +600,14 @@ font-size:12.5px;color:var(--tx);flex-shrink:0;cursor:pointer}
     <input type="text" id="sKey" placeholder="Prilepi ključ" autocomplete="off">
     <div class="btn2" style="margin-top:8px"><button class="btn" id="sKeyTest">Preizkusi</button><button class="btn pr" id="sKeySave">Shrani ključ</button></div>
     <div class="d" style="font-size:11.5px;color:var(--dim);margin-top:9px;line-height:1.5">Brez ključa aplikacija uporablja vgrajeno bazo <span class="num" id="sDbCount"></span> živil. Ključ doda dostop do baze USDA za vse ostalo.</div>
+  </div>
+
+  <div class="sh"><h2>Moj osebni trener</h2></div>
+  <div class="mc">
+    <label class="lbl">Ključ Anthropic (neobvezno)</label>
+    <input type="text" id="sAiKey" placeholder="sk-ant-..." autocomplete="off">
+    <div class="btn2" style="margin-top:8px"><button class="btn" id="sAiTest">Preizkusi</button><button class="btn pr" id="sAiSave">Shrani ključ</button></div>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:9px;line-height:1.5">Analiza in priporočila delujejo brez ključa. Ključ odklene samo klepet, kjer trenerju postavljaš vprašanja s svojimi besedami.</div>
   </div>
 
   <div class="sh"><h2>Varnostna kopija</h2></div>
@@ -581,6 +627,7 @@ font-size:12.5px;color:var(--tx);flex-shrink:0;cursor:pointer}
   <button class="on" data-v="danes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>Danes</button>
   <button data-v="nacrt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Načrt</button>
   <button data-v="kcal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h3M13 11h3M8 15h3M13 15h3"/></svg>Kalorije</button>
+  <button data-v="trener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20.8 5.6a5.5 5.5 0 00-7.8 0L12 6.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 22l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>Trener</button>
   <button data-v="timer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6M19 6l1.5-1.5"/></svg>Timer</button>
   <button data-v="zgo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M14 14h2M8 18h2"/></svg>Koledar</button>
   <button data-v="vec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>Več</button>
@@ -940,6 +987,75 @@ const MLPRESET=[
 ];
 
 const PCATS=[['celo','Celo telo'],['zgoraj','Zgornji del'],['roke','Roke'],['noge','Noge']];
+
+/* ime|gramov|ima velikost|ustrezno zivilo v bazi */
+const PORT_RAW=`jajce|58|1|jajce kuhano
+jajca|58|1|jajce kuhano
+beljak|33|0|beljak
+rumenjak|17|0|rumenjak
+rezina kruha|30|1|polnozrnat kruh
+kos kruha|30|1|polnozrnat kruh
+kruha|30|1|polnozrnat kruh
+toast|25|0|toast kruh bel
+zemlja|70|0|žemlja
+sendvic|150|0|sendvič s šunko in sirom
+zlica medu|21|0|med
+zlicka medu|7|0|med
+zlica olja|14|0|olivno olje
+zlicka olja|5|0|olivno olje
+zlica sladkorja|12|0|sladkor
+zlicka sladkorja|4|0|sladkor
+zlica|15|0|
+zlicka|5|0|
+skodelica|240|0|
+loncek jogurta|180|0|navadni jogurt 3,2%
+loncek skute|200|0|skuta pusta
+loncek|200|0|
+kozarec mleka|200|0|mleko 3,5%
+kozarec|200|0|
+merica gainerja|75|0|mass gainer prašek
+merica proteina|30|0|sirotkin protein prašek
+merica|30|0|sirotkin protein prašek
+pest oresckov|30|0|mandlji
+pest|30|0|mandlji
+banana|120|1|banana
+jabolko|180|1|jabolko
+pomaranca|150|1|pomaranča
+hruska|170|1|hruška
+breskev|150|1|breskev
+kivi|75|0|kivi
+mandarina|75|0|mandarina
+krompir|150|1|krompir kuhan
+paradiznik|120|1|paradižnik
+kumara|300|0|kumare
+korenje|60|0|korenje
+cebula|110|0|čebula
+piscancje prsi|150|1|piščančje prsi pečene
+zrezek|150|1|piščančje prsi pečene
+kos piscanca|150|1|piščančje prsi pečene
+klobasa|100|0|kranjska klobasa
+hrenovka|50|0|hrenovke
+rezina salame|10|0|salama poli
+rezina sira|25|0|sir gauda
+kocka masla|10|0|maslo
+kos pice|100|0|pica margarita
+palacinka|60|0|palačinka
+ploscica|60|0|proteinska ploščica
+konzerva tune|80|0|tuna v vodi
+kepica sladoleda|50|0|sladoled
+kos torte|100|0|piškoti navadni
+rogljicek|60|0|kroasan
+kroasan|60|0|kroasan
+burek|250|0|burek
+zlica arasidovega masla|16|0|arašidovo maslo
+zlica olja|14|0|olivno olje
+zlica medu|21|0|med`;
+const pstem=w=>w.length>4?w.slice(0,Math.max(4,w.length-2)):w;
+const PORTIONS=PORT_RAW.split('\n').map(l=>{const p=l.split('|');
+  return{s:p[0],g:+p[1],size:p[2]==='1',food:p[3]||'',w:p[0].split(' ').map(pstem)}})
+  .sort((a,b)=>b.s.length-a.s.length);
+const NUMW=[['pol',0.5],['ena',1],['eno',1],['en ',1],['dva',2],['dve',2],['tri',3],['stiri',4],
+  ['pet',5],['sest',6],['sedem',7],['osem',8],['devet',9],['deset',10]];
 </script>
 <script>
 const $=id=>document.getElementById(id);
@@ -947,6 +1063,7 @@ const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const buzz=(m=8)=>{try{navigator.vibrate&&navigator.vibrate(m)}catch(e){}};
 const rnd=n=>Math.round(n||0);
+const num=v=>parseFloat(String(v==null?'':v).replace(',','.').replace(/[^0-9.\-]/g,''));
 const DIA={'č':'c','ć':'c','š':'s','ž':'z','đ':'d'};
 const norm=s=>String(s).toLowerCase().replace(/[čćšžđ]/g,c=>DIA[c]);
 const SYN={piscanec:'piscanc',piscancji:'piscanc',pisc:'piscanc',govedina:'govej',govedino:'govej',
@@ -959,7 +1076,7 @@ FDB.forEach(f=>f.s=norm(f.n));
 
 let state={
   v:3,plan:{workouts:{},meals:{}},log:{},savedMeals:[],weights:[],
-  settings:{apiKey:'',workoutTime:'18:00',notif:false,goalKcal:0,sound:'pisk'}
+  settings:{apiKey:'',workoutTime:'18:00',notif:false,goalKcal:0,sound:'pisk',protGoal:0,aiKey:''}
 };
 let selDay=null,planDay=null,builder=[],fired={},photos=[];
 
@@ -1027,9 +1144,9 @@ function keyForWeekday(dayName){
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
 function entry(k){
-  if(!state.log[k])state.log[k]={ex:{},ml:{},kcal:{},exN:{},mlN:{},varN:{},mood:0,note:'',wt:null,slp:null,slpQ:0,wStart:'',wDur:null,skip:{},tm:{}};
+  if(!state.log[k])state.log[k]={ex:{},ml:{},kcal:{},exN:{},mlN:{},varN:{},mood:0,note:'',wt:null,slp:null,slpQ:0,wStart:'',wDur:null,skip:{},tm:{},prot:{}};
   const e=state.log[k];e.ex=e.ex||{};e.ml=e.ml||{};e.kcal=e.kcal||{};
-  e.exN=e.exN||{};e.mlN=e.mlN||{};e.varN=e.varN||{};e.skip=e.skip||{};e.tm=e.tm||{};return e;
+  e.exN=e.exN||{};e.mlN=e.mlN||{};e.varN=e.varN||{};e.skip=e.skip||{};e.tm=e.tm||{};e.prot=e.prot||{};return e;
 }
 
 function toast(m){const t=$('ts');t.textContent=m;t.classList.add('on');
@@ -1062,12 +1179,12 @@ document.addEventListener('click',ev=>{if(ev.target&&ev.target.id==='sheet')shee
 function askNumber(title,sub,opt,cb){
   const q=(opt.quick||[]).map(v=>'<button data-q="'+v+'">'+v+(opt.unit||'')+'</button>').join('');
   sheetOpen(title,sub,
-    '<input type="number" inputmode="decimal" step="'+(opt.step||'1')+'" id="shIn" value="'+(opt.value!=null?opt.value:'')+
+    '<input type="text" inputmode="decimal" id="shIn" value="'+(opt.value!=null?opt.value:'')+
     '" placeholder="'+(opt.ph||'')+'">'+(q?'<div class="chips">'+q+'</div>':'')+
     '<div class="btn2" style="margin-top:9px"><button class="btn" id="shX">Prekliči</button><button class="btn pr" id="shOk">Potrdi</button></div>');
   const inp=$('shIn');setTimeout(()=>{try{inp.focus();inp.select()}catch(e){}},60);
   $('shBody').querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{inp.value=b.dataset.q;buzz();done()});
-  const done=()=>{const n=parseFloat(String(inp.value).replace(',','.'));
+  const done=()=>{const n=parseFloat(String(inp.value).replace(',','.').replace(/[^0-9.\-]/g,''));
     if(isNaN(n)){toast('Vpiši številko');return}sheetClose();cb(n)};
   $('shOk').onclick=done;$('shX').onclick=sheetClose;
   inp.onkeydown=ev=>{if(ev.key==='Enter')done()};
@@ -1157,6 +1274,48 @@ function weekLabel(mk){
   const f=d=>d.getDate()+'. '+d.toLocaleDateString('sl-SI',{month:'short'});
   return f(a)+' – '+f(b);
 }
+
+/* ---------- razumevanje porcij ---------- */
+function parsePortion(q){
+  const t=norm(q).trim();
+  let n=null;
+  const md=t.match(/(\d+(?:[.,]\d+)?)/);
+  if(md)n=parseFloat(md[1].replace(',','.'));
+  else{for(const w of NUMW){if(t.indexOf(w[0])>=0){n=w[1];break}}}
+  if(n==null)n=1;
+  if(n<=0||n>50)return null;
+  let mult=1;
+  if(/srednj/.test(t))mult=1;
+  else if(/majhn|manjs|mal[aeio]\b/.test(t))mult=0.8;
+  else if(/velik|vecj/.test(t))mult=1.18;
+  let best=null;
+  const tsp=/zlick/.test(t);
+  for(const p of PORTIONS){
+    if(tsp&&p.s.indexOf('zlica')===0)continue;
+    if(!tsp&&p.s.indexOf('zlicka')===0)continue;
+    if(p.w.every(w=>t.indexOf(w)>=0)){best=p;break}}
+  if(!best)return null;
+  const g=Math.round(n*best.g*(best.size?mult:1));
+  let f=best.food?FDB.find(x=>x.n===best.food):null;
+  if(!f){const r=searchLocal(best.s);f=r.length?r[0]:null}
+  if(!f)return null;
+  const sz=best.size?(mult<1?'majhna ':(mult>1?'velika ':'srednja ')):'';
+  return {g:g,f:f,label:(n%1?n.toString().replace('.',','):n)+' × '+sz+best.s};
+}
+
+/* ---------- beljakovine ---------- */
+function protGoal(){
+  const g=+(state.settings&&state.settings.protGoal)||0;
+  if(g>0)return g;
+  const w=state.weights.slice().sort((a,b)=>a.d<b.d?1:-1)[0];
+  return w?Math.round(w.kg*1.8):140;
+}
+function dayProtein(k,day){
+  const e=entry(k),ms=state.plan.meals[day]||[];let s=0;
+  ms.forEach(m=>{if(e.prot[m.id]!=null&&e.ml[m.id])s+=+e.prot[m.id]});
+  return s;
+}
+function mealProt(items){return (items||[]).reduce((s,x)=>s+(+x.p||0),0)}
 const CHK='<svg viewBox="0 0 24 24" fill="none" stroke="#06210F" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
 const TRASH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0l-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6"/></svg>';
 const PEN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>';
@@ -1198,6 +1357,14 @@ function renderDanes(){
     $('dHero').classList.add('done');buzz([40,50,40]);
     setTimeout(()=>$('dHero').classList.remove('done'),800);
   }
+  const pe=dayProtein(k,day),pg=protGoal();
+  animNum($('dProt'),pe);
+  $('dProt').innerHTML=rnd(pe)+' <small>/ '+pg+' g</small>';
+  const pb=$('dProtB');pb.style.width=Math.min(100,pg?pe/pg*100:0)+'%';
+  pb.className=pe>=pg*0.85?'ok':'';
+  $('dWkC').innerHTML=w.done+' <small>/ '+w.total+'</small>';
+  const wb2=$('dWkB');wb2.style.width=(w.total?w.done/w.total*100:0)+'%';
+  wb2.className=w.total&&w.done===w.total?'ok':'';
   $('dWkName').textContent=DAY_TITLES[day]||'';
   const mck=$('dMasterCk');
   mck.innerHTML=CHK;
@@ -1263,6 +1430,7 @@ function renderDanes(){
 function eatVar(k,m,v){
   const e=entry(k);
   e.kcal[m.id]=v.kcal;e.ml[m.id]=true;e.mlN[m.id]=m.name;e.varN[m.id]=v.name;
+  e.prot[m.id]=v.prot!=null?v.prot:mealProt(v.items);
   buzz(12);save();renderDanes();renderWeek();toast(v.name+' · '+rnd(v.kcal)+' kcal');
 }
 function openMealPick(k,m){
@@ -1324,7 +1492,7 @@ function renderSleep(k){
   }else $('dSlpLast').textContent='';
 }
 $('dSlpSave').onclick=()=>{
-  const v=parseFloat(String($('dSlp').value).replace(',','.'));
+  const v=num($('dSlp').value);
   if(isNaN(v)||v<0||v>24){toast('Vpiši ure med 0 in 24');return}
   entry(keyForWeekday(selDay)).slp=v;buzz(12);save();renderSleep(keyForWeekday(selDay));toast('Spanje shranjeno')};
 
@@ -1348,7 +1516,7 @@ $('dWDur').onchange=ev=>{
 
 $('dNote').addEventListener('input',ev=>{entry(keyForWeekday(selDay)).note=ev.target.value;save()});
 $('dWtSave').onclick=()=>{
-  const v=parseFloat(String($('dWt').value).replace(',','.'));
+  const v=num($('dWt').value);
   if(isNaN(v)||v<20||v>300){toast('Vpiši težo med 20 in 300 kg');return}
   const k=keyForWeekday(selDay);entry(k).wt=v;
   state.weights=state.weights.filter(x=>x.d!==k);state.weights.push({d:k,kg:v});
@@ -1547,7 +1715,7 @@ async function doSearch(){
   const q=$('cQ').value.trim();
   if(q.length<2){$('cRes').innerHTML='';return}
   const res=searchLocal(q);
-  renderResults(res);
+  renderResults(res,parsePortion(q));
   if(state.settings.apiKey&&res.length<6){
     try{const u=await searchUSDA(q);
       if(u.length&&$('cQ').value.trim()===q)renderResults(res.concat(u));
@@ -1556,9 +1724,12 @@ async function doSearch(){
 }
 let usdaWarned=false;
 const CUSTOM_BTN='<button class="add" id="cCustom" style="margin-top:4px">Ni ga na seznamu – vpiši kalorije ročno</button>';
-function renderResults(list){
-  window._res=list;
-  $('cRes').innerHTML=(list.length?list.map((f,i)=>`<div class="fd" data-r="${i}">
+function renderResults(list,port){
+  window._res=list;window._port=port;
+  const ph=port?`<div class="fd" data-port="1" style="border-color:var(--ac);background:rgba(91,140,255,.08)">
+    <div class="n"><b style="font-weight:600">${esc(port.label)}</b><div style="font-size:11.5px;color:var(--mu);margin-top:2px">≈ ${port.g} g ${esc(port.f.n)}</div></div>
+    <div class="k num" style="text-align:right">${rnd(port.f.k*port.g/100)} kcal<br><span style="color:var(--dim);font-size:11px">${rnd((port.f.p||0)*port.g/100)} g B</span></div></div>`:'';
+  $('cRes').innerHTML=ph+(list.length?list.map((f,i)=>`<div class="fd" data-r="${i}">
     <div class="n">${esc(f.n)}${f.usda?' <span class="tg a">USDA</span>':''}</div>
     <div class="k num">${rnd(f.k)} kcal<span style="color:var(--dim)">/100 g</span></div></div>`).join('')
     :'<div class="emp"><div class="t">Ni zadetka</div><div class="s">Poskusi krajšo besedo, npr. samo „riž“.</div></div>')+CUSTOM_BTN;
@@ -1610,8 +1781,8 @@ $('cSaveMeal').onclick=()=>{
   if(!builder.length)return;
   const n=$('cName').value.trim()||'Obrok '+new Date().toLocaleDateString('sl-SI');
   state.savedMeals.push({id:uid(),name:n,slot:$('cSlot').value||'',time:'',
-    kcal:builder.reduce((s,x)=>s+x.k,0),
-    items:builder.map(x=>({n:x.n,g:x.g,k:x.k,p:x.p||0,k100:x.k100!=null?x.k100:null}))});
+    kcal:builder.reduce((s,x)=>s+x.k,0),prot:builder.reduce((s,x)=>s+(x.p||0),0),
+    items:builder.map(x=>({n:x.n,g:x.g,k:x.k,p:x.p||0,k100:x.k100!=null?x.k100:null,p100:x.p100||0}))});
   builder=[];$('cName').value='';buzz(12);save();renderBuilder();renderSaved();toast('Obrok shranjen')};
 $('cToday').onclick=()=>{
   if(!builder.length)return;
@@ -1636,6 +1807,7 @@ function renderSaved(){
   $('cSavedList').innerHTML=list.length?list.map(m=>`<div class="row">
     <div class="bd"><div class="nm">${esc(m.name)}</div>
     <div class="mt2"><span class="tg a">${rnd(m.kcal)} kcal</span>
+    <span class="tg">${rnd(m.prot!=null?m.prot:mealProt(m.items))} g B</span>
     ${m.slot?'<span class="tg">'+esc(m.slot)+'</span>':''}
     ${m.time?'<span class="tg">'+esc(m.time)+'</span>':''}
     <b>${esc((m.items||[]).map(i=>i.n).join(', '))}</b></div></div>
@@ -1655,29 +1827,37 @@ function renderSaved(){
 function openEditor(id){
   const m=state.savedMeals.find(x=>x.id===id);if(!m)return;
   seEdit=id;buzz();
-  seItems=(m.items||[]).map(i=>({id:uid(),n:i.n,g:i.g,k:i.k,
-    k100:i.k100!=null?i.k100:(i.g?i.k/i.g*100:null)}));
+  seItems=(m.items||[]).map(i=>({id:uid(),n:i.n,g:i.g,k:i.k,p:i.p||0,
+    k100:i.k100!=null?i.k100:(i.g?i.k/i.g*100:null),
+    p100:i.p100!=null?i.p100:(i.g&&i.p?i.p/i.g*100:0)}));
   $('seName').value=m.name;fillSlots($('seSlot'),m.slot||'');$('seTime').value=m.time||'';
   $('seQ').value='';$('seList').style.display='none';
   $('cEdit').style.display='block';renderEditor();
   $('cEdit').scrollIntoView({behavior:'smooth',block:'center'});
 }
 function renderEditor(){
-  $('seSum').textContent=rnd(seItems.reduce((s,x)=>s+x.k,0))+' kcal';
+  $('seSum').textContent=rnd(seItems.reduce((s,x)=>s+x.k,0))+' kcal · '+
+    rnd(seItems.reduce((s,x)=>s+(x.p||0),0))+' g beljakovin';
   $('seItems').innerHTML=seItems.length?seItems.map(x=>`<div class="row">
     <div class="bd"><div class="nm">${esc(x.n)}</div>
     <div class="mt2"><span class="tg a">${rnd(x.k)} kcal</span>
+    <span class="tg" data-pe="${x.id}">${rnd(x.p||0)} g B</span>
     ${x.k100!=null?'<b>'+rnd(x.k100)+' kcal/100 g</b>':'<b>ročni vnos</b>'}</div></div>
-    <input type="number" inputmode="numeric" data-gi="${x.id}" value="${x.k100!=null?rnd(x.g):rnd(x.k)}"
+    <input type="text" inputmode="decimal" data-gi="${x.id}" value="${x.k100!=null?rnd(x.g):rnd(x.k)}"
       style="width:66px;flex:0 0 66px;text-align:center;padding:7px 4px">
     <button class="ic" data-di="${x.id}">${TRASH}</button></div>`).join(''):
     '<div class="emp" style="padding:14px"><div class="s">Ni sestavin. Dodaj jih spodaj.</div></div>';
   $('seItems').querySelectorAll('[data-gi]').forEach(inp=>inp.onchange=()=>{
     const it=seItems.find(x=>x.id===inp.dataset.gi);
-    const v=parseFloat(String(inp.value).replace(',','.'));
+    const v=num(inp.value);
     if(isNaN(v)||v<0)return;
-    if(it.k100!=null){it.g=v;it.k=it.k100*v/100}else{it.k=v}
+    if(it.k100!=null){it.g=v;it.k=it.k100*v/100;it.p=(it.p100||0)*v/100}else{it.k=v}
     renderEditor()});
+  $('seItems').querySelectorAll('[data-pe]').forEach(el=>el.onclick=()=>{
+    const it=seItems.find(x=>x.id===el.dataset.pe);buzz();
+    askNumber(it.n,'Koliko gramov beljakovin ima ta sestavina?',
+      {value:rnd(it.p||0),unit:' g',quick:[0,10,20,30]},
+      v=>{it.p=v;it.p100=it.g?v/it.g*100:0;renderEditor()})});
   $('seItems').querySelectorAll('[data-di]').forEach(b=>b.onclick=()=>{
     buzz(18);seItems=seItems.filter(x=>x.id!==b.dataset.di);renderEditor()});
 }
@@ -1694,11 +1874,11 @@ $('seQ').addEventListener('input',()=>{
   $('seList').querySelectorAll('[data-si]').forEach(el=>el.onclick=()=>{
     const i=+el.dataset.si;
     if(i<0){askNumber(q,'Koliko kalorij ima ta sestavina?',{value:'',unit:' kcal',quick:[100,200,300]},
-      n=>{seItems.push({id:uid(),n:q,g:0,k:n,k100:null});$('seQ').value='';$('seList').style.display='none';renderEditor()});
+      n=>{seItems.push({id:uid(),n:q,g:0,k:n,p:0,k100:null,p100:0});$('seQ').value='';$('seList').style.display='none';renderEditor()});
       return}
     const f=window._se[i];
     askNumber(f.n,rnd(f.k)+' kcal na 100 g. Koliko gramov?',{value:100,unit:' g',quick:[30,50,100,150,200,250]},
-      n=>{seItems.push({id:uid(),n:f.n,g:n,k:f.k*n/100,k100:f.k});
+      n=>{seItems.push({id:uid(),n:f.n,g:n,k:f.k*n/100,p:(f.p||0)*n/100,k100:f.k,p100:f.p||0});
         $('seQ').value='';$('seList').style.display='none';renderEditor()})});
 });
 $('seCancel').onclick=()=>{seEdit=null;$('cEdit').style.display='none'};
@@ -1706,8 +1886,8 @@ $('seSave').onclick=()=>{
   const m=state.savedMeals.find(x=>x.id===seEdit);if(!m)return;
   const n=$('seName').value.trim();if(!n){toast('Vpiši ime obroka');return}
   m.name=n;m.slot=$('seSlot').value||'';m.time=$('seTime').value||'';
-  m.items=seItems.map(x=>({n:x.n,g:x.g,k:x.k,p:0,k100:x.k100}));
-  m.kcal=seItems.reduce((s,x)=>s+x.k,0);
+  m.items=seItems.map(x=>({n:x.n,g:x.g,k:x.k,p:x.p||0,k100:x.k100,p100:x.p100||0}));
+  m.kcal=seItems.reduce((s,x)=>s+x.k,0);m.prot=seItems.reduce((s,x)=>s+(x.p||0),0);
   seEdit=null;$('cEdit').style.display='none';buzz(12);save();renderSaved();renderDanes();renderWeek();
   toast('Obrok posodobljen')};
 $('cTabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{
@@ -1913,6 +2093,10 @@ function renderVec(){
   $('sDbCount').textContent=FDB.length;
   const g=+state.settings.goalKcal||0;
   $('sGoal').value=g>0?g:'';
+  const pgm=+state.settings.protGoal||0;
+  $('sProt').value=pgm>0?pgm:'';
+  $('sProtD').textContent=pgm>0?'Ročno nastavljen.':'Samodejno iz teže × 1,8 = '+protGoal()+' g.';
+  $('sAiKey').value=state.settings.aiKey||'';
   $('sGoalD').textContent=g>0?('Ročno nastavljen. Seštevek obrokov je '+rnd(mealSum(todayDay()))+' kcal.')
     :('Samodejno iz obrokov: '+rnd(mealSum(todayDay()))+' kcal. Vpiši številko za svoj cilj.');
   $('sTime').value=state.settings.workoutTime;
@@ -2021,6 +2205,28 @@ $('sNotifTest').onclick=()=>{
   ac();buzz(12);
   notify('Preizkus opomnika','Tako bo izgledal opomnik za obrok ali trening.',null)};
 $('sTime').onchange=e=>{state.settings.workoutTime=e.target.value;save()};
+$('sProt').onchange=e=>{
+  const v=num(e.target.value);state.settings.protGoal=(isNaN(v)||v<=0)?0:v;
+  save();renderVec();renderDanes();toast(state.settings.protGoal?('Cilj '+rnd(state.settings.protGoal)+' g'):'Cilj spet samodejen')};
+$('sAiSave').onclick=()=>{state.settings.aiKey=$('sAiKey').value.trim();save();
+  toast(state.settings.aiKey?'Ključ shranjen':'Ključ odstranjen')};
+$('sAiTest').onclick=async()=>{
+  const key=$('sAiKey').value.trim();if(!key){toast('Najprej prilepi ključ');return}
+  toast('Preizkušam…');
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:16,
+        messages:[{role:'user',content:'Odgovori samo z besedo: deluje'}]})});
+    if(r.ok){state.settings.aiKey=key;save();
+      sheetOpen('Trener je pripravljen','Ključ deluje in je shranjen.',
+        '<button class="btn pr fw" id="shX">Odlično</button>');$('shX').onclick=sheetClose;buzz(12)}
+    else sheetOpen('Ključ ni sprejet','Strežnik je vrnil '+r.status+
+      (r.status===401?'. Preveri, da si ključ prilepil v celoti.':'. Poskusi kasneje.'),
+      '<button class="btn fw" id="shX">V redu</button>'),$('shX').onclick=sheetClose;
+  }catch(e){sheetOpen('Klic ni šel skozi','Preveri internet.',
+    '<button class="btn fw" id="shX">V redu</button>');$('shX').onclick=sheetClose}};
 $('sGoal').onchange=e=>{
   const v=parseFloat(String(e.target.value).replace(',','.'));
   state.settings.goalKcal=(isNaN(v)||v<=0)?0:v;
@@ -2055,12 +2261,27 @@ $('sKeyTest').onclick=async()=>{
     '<button class="btn pr fw" id="shX" style="margin-top:10px">Odlično</button>');
   $('shX').onclick=sheetClose;buzz(12);playSound()};
 
-$('bExport').onclick=()=>{
-  const data=JSON.stringify({state:state,photos:photos},null,1);
-  const b=new Blob([data],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);
-  a.download='trening-kopija-'+todayKey()+'.json';a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),3000);toast('Kopija izvožena')};
+$('bExport').onclick=async()=>{
+  buzz(12);
+  const data=JSON.stringify({v:3,made:new Date().toISOString(),state:state,photos:photos});
+  const name='trening-kopija-'+todayKey()+'.json';
+  const blob=new Blob([data],{type:'application/json'});
+  const mb=(data.length/1048576).toFixed(1);
+  try{
+    if(window.File&&navigator.canShare){
+      const f=new File([blob],name,{type:'application/json'});
+      if(navigator.canShare({files:[f]})){
+        await navigator.share({files:[f],title:'Varnostna kopija treninga'});
+        toast('Kopija shranjena · '+mb+' MB');return;
+      }
+    }
+  }catch(err){if(err&&err.name==='AbortError')return}
+  try{
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+    document.body.appendChild(a);a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);
+    toast('Kopija prenesena · '+mb+' MB');
+  }catch(err){toast('Izvoz ni uspel')}};
 $('bImport').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;
   const r=new FileReader();
@@ -2079,6 +2300,248 @@ $('bReset').onclick=async()=>{
   state={v:3,plan:{workouts:seedWorkouts(),meals:seedMeals()},log:{},savedMeals:[],weights:[],
     settings:{apiKey:'',workoutTime:'18:00',notif:false}};
   save();boot();toast('Podatki izbrisani')};
+/* ================= MOJ OSEBNI TRENER ================= */
+function trStats(days){
+  const out={kcalP:0,prot:0,protG:protGoal(),sleep:0,sleepN:0,wDone:0,wPlan:0,mood:0,moodN:0,
+    kg0:null,kg1:null,days:0,byDay:{},exNames:{}};
+  const now=logicalDate(),keys=[];
+  for(let i=0;i<days;i++){const d=new Date(now);d.setDate(d.getDate()-i);
+    keys.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))}
+  let kSum=0,tSum=0,kN=0,pSum=0,pN=0;
+  keys.forEach(k=>{
+    const e=state.log[k];if(!e)return;
+    const wd=DAYS[dayIdx(new Date(k+'T12:00:00'))];
+    const eat=dayEaten(k,wd);
+    if(eat>0){kSum+=eat;tSum+=dayTarget(wd);kN++;out.days++}
+    const pr=dayProtein(k,wd);if(pr>0){pSum+=pr;pN++}
+    if(e.slp!=null){out.sleep+=e.slp;out.sleepN++}
+    if(e.mood){out.mood+=e.mood;out.moodN++}
+    const plan=(state.plan.workouts[wd]||[]).length;
+    const done=Object.values(e.ex||{}).filter(Boolean).length;
+    if(plan){out.wPlan++;if(done>=plan)out.wDone++;
+      out.byDay[wd]=out.byDay[wd]||{d:0,n:0};out.byDay[wd].n++;if(done>=plan)out.byDay[wd].d++}
+    Object.keys(e.exN||{}).forEach(id=>{out.exNames[e.exN[id]]=(out.exNames[e.exN[id]]||0)+1});
+  });
+  out.kcalP=tSum?kSum/tSum*100:0;
+  out.kcalAvg=kN?kSum/kN:0;out.tgAvg=kN?tSum/kN:0;
+  out.prot=pN?pSum/pN:0;
+  out.sleepAvg=out.sleepN?out.sleep/out.sleepN:0;
+  out.moodAvg=out.moodN?out.mood/out.moodN:0;
+  const ws=state.weights.slice().sort((a,b)=>a.d<b.d?-1:1).filter(w=>keys.indexOf(w.d)>=0);
+  if(ws.length>1){out.kg0=ws[0].kg;out.kg1=ws[ws.length-1].kg;
+    const d0=new Date(ws[0].d),d1=new Date(ws[ws.length-1].d);
+    const wk=Math.max(1,(d1-d0)/604800000);
+    out.kgWeek=(out.kg1-out.kg0)/wk}
+  return out;
+}
+
+function planGroups(){
+  const g=new Set();
+  DAYS.forEach(d=>(state.plan.workouts[d]||[]).forEach(x=>{
+    const l=EXLIB.find(y=>norm(y.name)===norm(x.name));if(l)g.add(l.group);
+    const t=norm(DAY_TITLES[d]||'');
+    ['prsa','hrbet','ramena','biceps','triceps','noge','trebuh','podlakti'].forEach(gr=>{if(t.indexOf(gr)>=0)g.add(gr)});
+  }));
+  return g;
+}
+
+function trTips(s){
+  const t=[];
+  const push=(c,ttl,txt)=>t.push({c:c,t:ttl,x:txt});
+  if(s.days<3){push('a','Premalo podatkov','Vpiši vsaj tri dni obrokov in vadb, pa ti bom znal povedati kaj konkretnega.');return t}
+
+  if(s.kcalP<92){
+    const manjka=Math.round(s.tgAvg-s.kcalAvg);
+    push('w','Ješ premalo za rast','V povprečju ti manjka '+manjka+' kcal na dan ('+rnd(s.kcalP)+' % cilja). '+
+      'Najlažje to nadoknadiš z zgoščeno hrano: žlica arašidovega masla je 94 kcal, pest mandljev 174, dva decilitra polnomastnega mleka 128.');
+  } else if(s.kcalP>115){
+    push('w','Precej nad ciljem','Ješ '+rnd(s.kcalP)+' % cilja. Če se teža dviguje hitreje kot pol kilograma na teden, gre pretežno v maščobo.');
+  } else {
+    push('g','Kalorije so na mestu','Držiš '+rnd(s.kcalP)+' % cilja. To je natanko tam, kjer mora biti.');
+  }
+
+  if(s.prot>0){
+    if(s.prot<s.protG*0.85)push('w','Premalo beljakovin','Povprečno '+rnd(s.prot)+' g na dan, cilj je '+s.protG+
+      ' g. Mišica se brez tega ne zgradi, tudi če kalorije dosežeš. 200 g skute je 32 g, merica sirotke 23 g, tri jajca 22 g.');
+    else push('g','Beljakovine so pokrite',rnd(s.prot)+' g na dan proti cilju '+s.protG+' g.');
+  } else push('a','Beljakovin še ne spremljaš','Ko obrok izbereš iz shranjenih, se beljakovine štejejo same. Sestavi svoje obroke v zavihku Kalorije.');
+
+  if(s.sleepN){
+    if(s.sleepAvg<6.5)push('w','Spanje te ustavlja','Povprečno '+s.sleepAvg.toFixed(1)+
+      ' h. Pri manj kot sedmih urah se izločanje rastnega hormona in obnova mišic izrazito poslabšata. To ti ustavi napredek bolj kot katerakoli vaja.');
+    else if(s.sleepAvg<7.5)push('a','Spanje je na meji',s.sleepAvg.toFixed(1)+' h povprečno. Pol ure več bi se poznalo pri moči na treningu.');
+    else push('g','Spanje je odlično',s.sleepAvg.toFixed(1)+' h povprečno. Tu ne spreminjaj ničesar.');
+  }
+
+  if(s.wPlan){
+    const p=s.wDone/s.wPlan*100;
+    if(p<70){
+      const bd=Object.keys(s.byDay).sort((a,b)=>(s.byDay[a].d/s.byDay[a].n)-(s.byDay[b].d/s.byDay[b].n))[0];
+      push('w','Treningi ti uhajajo','Dokončal si '+s.wDone+' od '+s.wPlan+' načrtovanih. '+
+        (bd?'Najpogosteje izpustiš '+DAYF[DAYS.indexOf(bd)]+' – razmisli, ali bi ta dan prestavil ali skrajšal.':''));
+    } else push('g','Doslednost je dobra',s.wDone+' od '+s.wPlan+' treningov dokončanih.');
+  }
+
+  if(s.kgWeek!=null){
+    const w=s.kgWeek;
+    if(w<0.05)push('w','Teža stoji','Spreminja se '+(w>=0?'+':'')+w.toFixed(2)+
+      ' kg na teden. Za rast bi rad videl 0,25 do 0,5 kg. Dodaj približno 300 kcal na dan in čez dva tedna preveri znova.');
+    else if(w>0.7)push('a','Teža raste hitro','+'+w.toFixed(2)+
+      ' kg na teden je nad zdravim tempom za pridobivanje mišic. Odvzemi kakih 200 kcal.');
+    else push('g','Teža raste kot mora','+'+w.toFixed(2)+' kg na teden je natanko pravi tempo.');
+  } else push('a','Tehtaj se redno','Vsak konec tedna ob istem času, na tešče. Brez tega ne morem oceniti, ali cilj kalorij sploh deluje.');
+
+  if(s.moodN&&s.moodAvg<=2.4)push('w','Počutje po vadbi je slabo','Povprečno '+s.moodAvg.toFixed(1)+
+    ' od 5. Najpogosteje je vzrok premalo spanja ali premalo hrane pred vadbo, ne premalo volje.');
+
+  const g=planGroups(),all=['prsa','hrbet','ramena','biceps','triceps','noge','trebuh','podlakti'];
+  const miss=all.filter(x=>!g.has(x));
+  if(miss.length)push('a','Manjkajoče mišične skupine','V tedenskem načrtu nimaš: '+miss.join(', ')+
+    '. Poglej predloge spodaj.');
+
+  const rest=DAYS.filter(d=>!(state.plan.workouts[d]||[]).length).length;
+  if(rest===0)push('w','Nimaš počitka','Vseh sedem dni je vadba. Mišica raste med počitkom, ne med vadbo.');
+  else if(rest>3)push('a','Veliko počitka',rest+' prostih dni na teden. Če napreduješ, je v redu; sicer dodaj en dan.');
+  return t;
+}
+
+function foodSuggest(){
+  const day=selDay||todayDay(),k=keyForWeekday(day);
+  const tg=dayTarget(day),eat=dayEaten(k,day),pg=protGoal(),pe=dayProtein(k,day);
+  const gapK=Math.round(tg-eat),gapP=Math.round(pg-pe);
+  $('trGap').textContent=gapK>0?('manjka '+gapK+' kcal'+(gapP>0?' · '+gapP+' g B':'')):'cilj dosežen';
+  if(gapK<=50){$('trFood').innerHTML='<div class="ins">Dnevni cilj imaš pokrit. Če si še lačen, dodaj sadje ali skuto – malo kalorij, veliko sitosti.</div>';return}
+  const mine=state.savedMeals.filter(m=>{const kc=m.kcal||0;return kc>=gapK*0.55&&kc<=gapK*1.25});
+  let h='';
+  if(mine.length){
+    h+=mine.slice(0,3).map(m=>'<div class="row"><div class="bd"><div class="nm">'+esc(m.name)+'</div>'+
+      '<div class="mt2"><span class="tg a">'+rnd(m.kcal)+' kcal</span><span class="tg">'+
+      rnd(m.prot!=null?m.prot:mealProt(m.items))+' g B</span><b>tvoj shranjeni obrok</b></div></div></div>').join('');
+  }
+  const wantProt=gapP>15;
+  const cand=FDB.filter(f=>f.k>60&&f.n.indexOf('olje')<0&&f.n.indexOf('sladkor')<0)
+    .map(f=>({f:f,score:wantProt?(f.p*4)/(f.k||1):f.k/100}))
+    .sort((a,b)=>b.score-a.score).slice(0,6);
+  h+=cand.map(c=>{
+    const g=Math.max(20,Math.min(400,Math.round(gapK/ (c.f.k/100) /10)*10));
+    return '<div class="row"><div class="bd"><div class="nm">'+esc(c.f.n)+'</div>'+
+      '<div class="mt2"><span class="tg">'+g+' g</span><span class="tg a">'+rnd(c.f.k*g/100)+' kcal</span>'+
+      '<span class="tg">'+rnd((c.f.p||0)*g/100)+' g B</span></div></div></div>'}).join('');
+  h+='<div class="ins">'+(wantProt?'Ker ti manjka še '+gapP+' g beljakovin, sem izbral živila z največ beljakovinami na kalorijo.'
+    :'Izbral sem kalorično zgoščena živila, da cilj dosežeš brez prevelike količine hrane.')+'</div>';
+  $('trFood').innerHTML=h;
+}
+
+function exSuggest(){
+  const g=planGroups(),all=['prsa','hrbet','ramena','biceps','triceps','noge','trebuh','podlakti'];
+  const miss=all.filter(x=>!g.has(x));
+  if(!miss.length){$('trGaps').innerHTML='<div class="ins">Tvoj načrt pokriva vse večje mišične skupine. Za napredek raje dodajaj ponovitve ali močnejšo elastiko kot nove vaje.</div>';return}
+  let h='';
+  miss.forEach(gr=>{
+    const list=EXLIB.filter(x=>x.group===gr).slice(0,3);
+    h+='<div class="wkgrp">'+gr+'</div>';
+    h+=list.map(x=>'<div class="row"><div class="bd"><div class="nm">'+esc(x.name)+'</div>'+
+      '<div class="mt2"><span class="tg">'+x.sets+' × '+(x.reps||x.sec+' s')+'</span></div></div>'+
+      '<button class="ic" data-addex="'+esc(x.name)+'|'+x.sets+'|'+(x.reps||'')+'|'+(x.sec||'')+'">'+
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>').join('');
+  });
+  $('trGaps').innerHTML=h;
+  $('trGaps').querySelectorAll('[data-addex]').forEach(b=>b.onclick=()=>{
+    const p=b.dataset.addex.split('|');
+    askChoice('Kam naj dodam vajo?',esc(p[0]),DAYS.map(d=>({label:DAYF[DAYS.indexOf(d)],
+      sub:(DAY_TITLES[d]||'')+' · '+(state.plan.workouts[d]||[]).length+' vaj'})),
+      i=>{const d=DAYS[i];
+        state.plan.workouts[d].push({id:uid(),name:p[0],sets:p[1],reps:p[2],sec:p[3],note:''});
+        buzz(12);save();renderDanes();renderWeek();toast(p[0]+' dodano v '+DAYF[i])});
+  });
+}
+
+function renderTrener(){
+  const s7=trStats(7),s30=trStats(30);
+  $('trSub').textContent=s7.days?('zadnjih 7 dni · '+s7.days+' dni z zapisom'):'še brez podatkov';
+  $('trStats').innerHTML=
+    '<div class="mc"><div class="lb">Kalorije</div><div class="vl num">'+rnd(s7.kcalP)+' <small>% cilja</small></div>'+
+      '<div class="bar"><i class="'+(s7.kcalP>=92&&s7.kcalP<=115?'ok':'')+'" style="width:'+Math.min(100,s7.kcalP).toFixed(0)+'%"></i></div></div>'+
+    '<div class="mc"><div class="lb">Beljakovine</div><div class="vl num">'+rnd(s7.prot)+' <small>/ '+s7.protG+' g</small></div>'+
+      '<div class="bar"><i class="'+(s7.prot>=s7.protG*0.85?'ok':'')+'" style="width:'+Math.min(100,s7.protG?s7.prot/s7.protG*100:0).toFixed(0)+'%"></i></div></div>'+
+    '<div class="mc"><div class="lb">Spanje</div><div class="vl num">'+(s7.sleepN?s7.sleepAvg.toFixed(1)+' <small>h</small>':'–')+'</div></div>'+
+    '<div class="mc"><div class="lb">Teža / teden</div><div class="vl num">'+
+      (s30.kgWeek!=null?(s30.kgWeek>=0?'+':'')+s30.kgWeek.toFixed(2)+' <small>kg</small>':'–')+'</div></div>';
+  const tips=trTips(s7.days>=3?s7:s30);
+  $('trCount').textContent=tips.length?tips.length+' točk':'';
+  const col={w:'var(--bd)',a:'var(--wn)',g:'var(--ok)'};
+  $('trTips').innerHTML=tips.map(t=>'<div class="ins" style="border-left-color:'+col[t.c]+'">'+
+    '<b>'+esc(t.t)+'</b><br>'+esc(t.x)+'</div>').join('');
+  foodSuggest();exSuggest();renderChat();
+}
+
+/* ---------- klepet ---------- */
+let chatLog=[];
+const QUICK=['Kaj naj pojem za večerjo?','Kako naj dodam podlakti?',
+  'Zakaj teža ne raste?','Koliko počitka med serijami?'];
+function ctx(){
+  const s=trStats(14),day=todayDay(),k=todayKey();
+  return 'Podatki uporabnika (calisthenics, lastna teža in elastike):\n'+
+   '- Dnevni cilj: '+rnd(dayTarget(day))+' kcal, beljakovine '+protGoal()+' g\n'+
+   '- Zadnjih 14 dni: '+rnd(s.kcalP)+' % kaloričnega cilja, '+rnd(s.prot)+' g beljakovin/dan, '+
+     (s.sleepN?s.sleepAvg.toFixed(1)+' h spanja':'spanje ni beleženo')+', '+
+     s.wDone+'/'+s.wPlan+' treningov dokončanih\n'+
+   '- Teža: '+(s.kg1!=null?s.kg1+' kg, sprememba '+(s.kgWeek>=0?'+':'')+(s.kgWeek||0).toFixed(2)+' kg/teden':'ni podatka')+'\n'+
+   '- Danes ('+DAYF[DAYS.indexOf(day)]+', '+(DAY_TITLES[day]||'počitek')+'): pojedeno '+
+     rnd(dayEaten(k,day))+' kcal\n'+
+   '- Tedenski načrt: '+DAYS.map(d=>d+'='+((state.plan.workouts[d]||[]).length?
+     (DAY_TITLES[d]||'')+' ('+(state.plan.workouts[d]||[]).length+' vaj)':'počitek')).join(', ')+'\n'+
+   '- Shranjeni obroki: '+(state.savedMeals.length?state.savedMeals.map(m=>m.name+' '+rnd(m.kcal)+'kcal').join(', '):'jih še ni');
+}
+function renderChat(){
+  const has=!!(state.settings.aiKey||'').trim();
+  $('trKeyBox').innerHTML=has?'':
+    '<div class="ins" style="border-left-color:var(--wn)"><b>Klepet potrebuje ključ</b><br>'+
+    'Analiza levo deluje brez njega. Za klepet rabiš ključ Anthropic, ki ga vpišeš v Več → Moj osebni trener. '+
+    'Stane približno pol centa na vprašanje.</div>';
+  $('trQuick').innerHTML=QUICK.map(q=>'<button class="btn" data-q="'+esc(q)+'" style="font-size:12px;padding:9px 8px">'+esc(q)+'</button>').join('');
+  $('trQuick').querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{$('trQ').value=b.dataset.q;askAI()});
+  $('trMsgs').innerHTML=chatLog.length?chatLog.map(m=>
+    m.role==='user'
+      ?'<div class="row" style="background:var(--surf3)"><div class="bd"><div class="nm">'+esc(m.text)+'</div></div></div>'
+      :'<div class="ins" style="border-left-color:var(--ac);white-space:pre-wrap">'+esc(m.text)+'</div>').join('')
+    :'<div class="emp" style="padding:22px"><div class="t">Vprašaj karkoli</div><div class="s">Trener pozna tvoj načrt, obroke, spanje in težo.</div></div>';
+}
+async function askAI(){
+  const q=$('trQ').value.trim();if(!q)return;
+  const key=(state.settings.aiKey||'').trim();
+  if(!key){toast('Vpiši ključ v Več → Moj osebni trener');return}
+  chatLog.push({role:'user',text:q});$('trQ').value='';
+  chatLog.push({role:'ai',text:'…'});renderChat();buzz();
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'content-type':'application/json','x-api-key':key,
+        'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:700,
+        system:'Si osebni trener in prehranski svetovalec. Odgovarjaj v slovenščini, kratko in konkretno, '+
+          'z uporabnimi številkami. Uporabnik trenira calisthenics z lastno težo in elastikami. '+
+          'Ne postavljaj diagnoz in ne svetuj o zdravilih ali dodatkih razen osnovnih (protein, kreatin). '+
+          'Če ti podatkov manjka, to povej.\n\n'+ctx(),
+        messages:chatLog.filter(m=>m.text!=='…').map(m=>({role:m.role==='user'?'user':'assistant',content:m.text}))})});
+    if(!r.ok){const tx=r.status===401?'Ključ ni sprejet.':r.status===429?'Preveč zahtev, počakaj minuto.':
+      r.status===400?'Zahteva zavrnjena.':'Napaka '+r.status;
+      chatLog[chatLog.length-1]={role:'ai',text:tx};renderChat();return}
+    const j=await r.json();
+    const txt=(j.content||[]).map(c=>c.text||'').filter(Boolean).join('\n')||'Brez odgovora.';
+    chatLog[chatLog.length-1]={role:'ai',text:txt};renderChat();buzz(12);
+  }catch(e){
+    chatLog[chatLog.length-1]={role:'ai',text:'Klic ni šel skozi. Preveri internet ali poskusi znova.'};
+    renderChat();
+  }
+}
+$('trSend').onclick=askAI;
+$('trQ').addEventListener('keydown',e=>{if(e.key==='Enter')askAI()});
+$('trTabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  buzz();$('trTabs').querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');const a=b.dataset.tr==='ana';
+  $('trAna').style.display=a?'block':'none';$('trChat').style.display=a?'none':'block';
+  if(!a)renderChat()});
 /* ---------- štoparica ---------- */
 let swT0=0,swAcc=0,swId=null,swLaps=[];
 function swFmt(ms){const t=Math.floor(ms/100),d=t%10,sec=Math.floor(t/10)%60,m=Math.floor(t/600);
@@ -2121,7 +2584,7 @@ $('tCustom').onclick=()=>{ac();askNumber('Poljuben počitek','Vpiši sekunde.',
   {value:150,unit:' s',quick:[20,25,150,240,300]},n=>{if(n>0)tmrStart(Math.round(n))})};
 
 /* ---------- navigacija ---------- */
-const VORDER=['danes','nacrt','kcal','timer','zgo','vec'];
+const VORDER=['danes','nacrt','kcal','trener','timer','zgo','vec'];
 let curV='danes';
 $('tb').querySelectorAll('button').forEach(b=>b.onclick=()=>{
   buzz();
@@ -2137,6 +2600,7 @@ $('tb').querySelectorAll('button').forEach(b=>b.onclick=()=>{
   if(v==='zgo')renderZgo();
   if(v==='vec')renderVec();
   if(v==='timer')renderTimerTab();
+  if(v==='trener')renderTrener();
   if(v==='kcal'){renderBuilder();if($('cSaved').style.display!=='none')renderSaved()}
   if(v==='danes'){renderDanes();renderWeek()}
   window.scrollTo({top:0,behavior:'smooth'})});
@@ -2205,7 +2669,7 @@ function boot(){
   if(!state.plan.meals||!Object.keys(state.plan.meals).length)state.plan.meals=seedMeals();
   DAYS.forEach(d=>{state.plan.workouts[d]=state.plan.workouts[d]||[];state.plan.meals[d]=state.plan.meals[d]||[]});
   state.log=state.log||{};state.savedMeals=state.savedMeals||[];state.weights=state.weights||[];
-  state.settings=Object.assign({apiKey:'',workoutTime:'18:00',notif:false},state.settings||{});
+  state.settings=Object.assign({apiKey:'',workoutTime:'18:00',notif:false,goalKcal:0,sound:'pisk'},state.settings||{});
   selDay=selDay||todayDay();planDay=planDay||todayDay();
   renderWeek();renderDanes();renderVec();renderTimerTab();
 }
